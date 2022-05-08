@@ -1,4 +1,4 @@
-package cz.swisz.so.task3;
+package cz.swisz.so.task4;
 
 import java.util.Random;
 
@@ -13,18 +13,10 @@ public final class Generator {
             int opType = _rand.nextInt(4);
 
             switch (opType) {
-                case 0:
-                    appendIterationBlock(proc);
-                    break;
-                case 1:
-                    appendCopyBlock(proc);
-                    break;
-                case 2:
-                    appendRandomAccessBlock(proc);
-                    break;
-                case 3:
-                    appendWaitBlock(proc);
-                    break;
+                case 0 -> appendIterationBlock(proc);
+                case 1 -> appendCopyBlock(proc);
+                case 2 -> appendRandomAccessBlock(proc);
+                case 3 -> appendWaitBlock(proc);
             }
         }
 
@@ -32,7 +24,7 @@ public final class Generator {
     }
 
     private static void appendIterationBlock(Process proc) {
-        int length = _rand.nextInt(OP_MAX_LENGTH);
+        int length = _rand.nextInt(OP_MAX_LENGTH) + 1;
         int from = _rand.nextInt(Utils.MAX_ADDRESS - length);
 
         for (int i = from; i < from + length; i++) {
@@ -41,7 +33,7 @@ public final class Generator {
     }
 
     private static void appendCopyBlock(Process proc) {
-        int length = _rand.nextInt(OP_MAX_LENGTH);
+        int length = _rand.nextInt(OP_MAX_LENGTH) + 1;
         int from = _rand.nextInt(Utils.MAX_ADDRESS - length);
         int to = _rand.nextInt(Utils.MAX_ADDRESS - length);
 
@@ -52,8 +44,8 @@ public final class Generator {
     }
 
     private static void appendRandomAccessBlock(Process proc) {
-        int length = _rand.nextInt(OP_MAX_LENGTH);
-        int blockSize = _rand.nextInt(OP_MAX_LENGTH);
+        int length = _rand.nextInt(OP_MAX_LENGTH) + 1;
+        int blockSize = _rand.nextInt(OP_MAX_LENGTH) + 1;
         int from = _rand.nextInt(Utils.MAX_ADDRESS - blockSize);
 
         for (int i = 0; i < length; i++) {
