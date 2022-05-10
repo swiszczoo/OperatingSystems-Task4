@@ -16,7 +16,7 @@ public class LRU extends PageReplacementAlgorithm {
     @Override
     protected void requestPage(Process proc, int page) {
         if (!_lastUsed.containsKey(proc)) {
-            _lastUsed.put(proc, new int[Utils.PAGE_COUNT]);
+            _lastUsed.put(proc, new int[proc.getPageCount()]);
         }
 
         _lastUsed.get(proc)[page] = getCurrentIteration(proc);

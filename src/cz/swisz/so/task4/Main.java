@@ -13,7 +13,8 @@ public class Main {
         double totalErrors = 0.0;
 
         Sequence sequence = seq.cloneSequence();
-        factory.constructInstance().runSimulation(sequence);
+        PageReplacementAlgorithm alg = factory.constructInstance();
+        alg.runSimulation(sequence);
         sequence.calcTotalPageErrors();
         totalErrors += sequence.getPageErrors();
 
@@ -23,6 +24,12 @@ public class Main {
             System.out.printf("%d ", process.getPageErrors());
         }
         System.out.println();
+        System.out.print("Pages per proc: ");
+        for (Process process : sequence.getProcesses()) {
+            System.out.printf("%d ", alg.getFramesForProcess(process));
+        }
+        System.out.println();
+        System.out.println();
     }
 
 
@@ -30,7 +37,7 @@ public class Main {
         Process[] processes = new Process[15];
         Random rand = new Random();
         for (int i = 1; i <= 15; i++) {
-            processes[i - 1] = Generator.generateProcess(rand.nextInt(50) + 50);
+            processes[i - 1] = Generator.generateProcess(rand.nextInt(50) + 75);
         }
 
         Sequence seq = new Sequence(processes);

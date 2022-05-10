@@ -11,9 +11,9 @@ public abstract class PageReplacementAlgorithm {
         private final BitSet pagesInRam;
         private int i;
 
-        private ProcessData() {
+        private ProcessData(Process proc) {
             pageAssignment = new ArrayList<>();
-            pagesInRam = new BitSet(Utils.PAGE_COUNT);
+            pagesInRam = new BitSet(proc.getPageCount());
             pagesInRam.clear();
             i = 0;
         }
@@ -29,7 +29,7 @@ public abstract class PageReplacementAlgorithm {
 
     public void runSimulation(Sequence sequence) {
         for (Process p : sequence.getProcesses()) {
-            _procData.put(p, new ProcessData());
+            _procData.put(p, new ProcessData(p));
         }
 
         startSimulation(sequence);
@@ -116,6 +116,10 @@ public abstract class PageReplacementAlgorithm {
     }
 
     protected int getFrameCount(Process proc) {
+        return _procData.get(proc).pageAssignment.size();
+    }
+
+    public int getFramesForProcess(Process proc) {
         return _procData.get(proc).pageAssignment.size();
     }
 

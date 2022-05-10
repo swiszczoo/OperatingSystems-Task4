@@ -9,8 +9,8 @@ import java.util.Queue;
 
 public class PageFaultFrequency extends LRU {
     private HashMap<Process, Queue<Integer>> _errors;
-    private static double MIN_THRESHOLD = 0.005;
-    private static double MAX_THRESHOLD = 0.04;
+    private static double MIN_THRESHOLD = 0.03;
+    private static double MAX_THRESHOLD = 0.3;
 
     public PageFaultFrequency() {
         _errors = new HashMap<>();
@@ -42,7 +42,7 @@ public class PageFaultFrequency extends LRU {
         Queue<Integer> q = _errors.get(proc);
         q.add(getCurrentIteration(proc));
 
-        if (q.size() > 10) {
+        if (q.size() > 3) {
             Integer last = q.poll();
 
             double currentFreq = 10.0 / (getCurrentIteration(proc) - last);

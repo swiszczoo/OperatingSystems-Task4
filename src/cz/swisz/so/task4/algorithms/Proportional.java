@@ -7,13 +7,13 @@ import cz.swisz.so.task4.Utils;
 public class Proportional extends LRU {
     @Override
     protected void startSimulation(Sequence sequence) {
-        long totalCalls = 0;
+        long totalFrames = 0;
         for (Process p : sequence.getProcesses()) {
-            totalCalls += p.getRequestCount();
+            totalFrames += p.getPageCount();
         }
 
         for (Process p : sequence.getProcesses()) {
-            double frac = p.getRequestCount() / (double)totalCalls;
+            double frac = p.getPageCount() / (double)totalFrames;
             int frameCount = (int) Math.round(Utils.TOTAL_FRAME_COUNT * frac);
 
             if (frameCount == 0) frameCount = 1;

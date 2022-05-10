@@ -29,11 +29,13 @@ public class Process {
     }
 
     private final ArrayList<Request> _requests;
+    private int _pageCount;
     private int _pageErrors;
 
-    public Process() {
+    public Process(int pageCount) {
         _requests = new ArrayList<>();
         _pageErrors = 0;
+        _pageCount = pageCount;
     }
 
     public void addRequest(Request request) {
@@ -56,8 +58,12 @@ public class Process {
         return _pageErrors;
     }
 
+    public int getPageCount() {
+        return _pageCount;
+    }
+
     public Process cloneProcess() {
-        Process clone = new Process();
+        Process clone = new Process(_pageCount);
         clone._requests.addAll(_requests);
         clone._pageErrors = _pageErrors;
 
